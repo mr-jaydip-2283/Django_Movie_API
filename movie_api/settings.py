@@ -25,11 +25,8 @@ SECRET_KEY = 'django-insecure-!s(%@6$wt*^x*b*743i#6$vo2jys6gxhql%(3p7*t7!*km3(to
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'movies.onrender.com',  # Replace with your Render URL
-    'localhost',
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = ['movie_api.onrender.com', '127.0.0.1']
+
 
 
 # Application definition
@@ -80,10 +77,7 @@ WSGI_APPLICATION = 'movie_api.wsgi.application'
 
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
@@ -139,3 +133,7 @@ SECURE_HSTS_PRELOAD = True
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
